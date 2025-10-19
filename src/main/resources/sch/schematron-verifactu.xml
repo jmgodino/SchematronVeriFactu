@@ -4,6 +4,7 @@
 	queryBinding="xslt2" >
 
 <ns prefix="sf" uri="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd" />
+<ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema" />
 
 <phase id="all">
 	<active pattern="business"/>>
@@ -66,7 +67,19 @@
         El grupo 'ImporteRectificacion' es obligatorio en facturas rectificativas por sustitución 'TipoRectificativa=S'  
       </assert>
     </rule>
- 
+  
+   
+    <rule context="//sf:RegistroAlta">
+      <assert test="exists(sf:FechaOperacion) and year-from-date(current-date()) - year-from_date(xs:date(sf:FechaOperacion)) &lt;= 20">
+        La fecha de operación no puede tener más de 20 años de antigüedad  
+      </assert>
+    </rule>
+    
+    <rule context="//sf:RegistroAlta">
+      <assert test="exists(sf:FechaOperacion) and year-from_date(xs:date(sf:FechaOperacion)) &lt;= year-from-date(current-date())">
+        La fecha de operación no puede se posterior al año actual  
+      </assert>
+    </rule>
 
   </pattern>
 

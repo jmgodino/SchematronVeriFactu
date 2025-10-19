@@ -12,7 +12,7 @@ import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;
 
-import com.helger.schematron.pure.SchematronResourcePure;
+import com.helger.schematron.sch.SchematronResourceSCH;
 import com.helger.schematron.svrl.SVRLHelper;
 import com.helger.schematron.svrl.jaxb.SchematronOutputType;
 import com.helger.xml.transform.TransformSourceFactory;
@@ -40,7 +40,7 @@ public class TestValidator extends Temporizado {
 	private void validarSchematron() {
 		try {
 			// 1. Carga el esquema Schematron
-			final SchematronResourcePure aSch = SchematronResourcePure.fromInputStream("schematron",
+			final SchematronResourceSCH aSch = SchematronResourceSCH.fromInputStream("schematron",
 					Utils.getFile("src/main/resources/sch/schematron-verifactu.xml"));
 
 			// 2. Carga el documento XML a validar

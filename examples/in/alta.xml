@@ -43,6 +43,7 @@
 	<sf:CuotaRecargoRectificado>0</sf:CuotaRecargoRectificado>
 </sf:ImporteRectificacion>
 
+<sf:FechaOperacion>01-01-2024</sf:FechaOperacion>
 
 <sf:DescripcionOperacion>Descripción</sf:DescripcionOperacion>
 <sf:Destinatarios>
