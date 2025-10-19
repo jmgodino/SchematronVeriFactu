@@ -60,6 +60,14 @@ public class Utils {
 		
 		return db.parse(new ByteArrayInputStream(strDoc));
 	}
+	
+	public static Document parseDocument(InputStream input) throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setNamespaceAware(true);
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		
+		return db.parse(input);
+	}
 
 	
 	public static String getXPath(String xpath, String prefix, String nameSpace, Node node) throws JaxenException {

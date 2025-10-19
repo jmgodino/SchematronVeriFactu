@@ -15,7 +15,7 @@
 <sf:NombreRazonEmisor>XXXXX</sf:NombreRazonEmisor>
 <sf:Subsanacion>S</sf:Subsanacion>
 <sf:RechazoPrevio>X</sf:RechazoPrevio>
-<sf:TipoFactura>R3</sf:TipoFactura>
+<sf:TipoFactura>F1</sf:TipoFactura>
 
 <sf:TipoRectificativa>S</sf:TipoRectificativa>
 <sf:FacturasRectificadas>
@@ -43,7 +43,7 @@
 	<sf:CuotaRecargoRectificado>0</sf:CuotaRecargoRectificado>
 </sf:ImporteRectificacion>
 
-<sf:FechaOperacion>01-01-2024</sf:FechaOperacion>
+<sf:FechaOperacion>01-01-2056</sf:FechaOperacion>
 
 <sf:DescripcionOperacion>Descripción</sf:DescripcionOperacion>
 <sf:Destinatarios>

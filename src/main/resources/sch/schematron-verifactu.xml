@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema 
 	xmlns="http://purl.oclc.org/dsdl/schematron"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	queryBinding="xslt2" >
 
 <ns prefix="sf" uri="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd" />
 <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema" />
+<ns uri="#functions" prefix="f"/>
+ 
+<xsl:function name="f:get-year" as="xs:int">
+    <xsl:param name="fecha" as="xs:string"/>
+    <xsl:choose>
+      <xsl:when test="exists($fecha)">
+        <xsl:value-of select="substring($fecha, 7, 4)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="2025" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
 
 <phase id="all">
 	<active pattern="business"/>>
@@ -68,19 +82,26 @@
       </assert>
     </rule>
   
-   
+  	<rule context="//sf:RegistroAlta">
+		<report test="1 = 1">
+			Se ha encontrado la fecha de operación <value-of select="substring(sf:FechaOperacion, 7, 4)" />
+		</report>
+    </rule>
+
+ 
     <rule context="//sf:RegistroAlta">
-      <assert test="exists(sf:FechaOperacion) and year-from-date(current-date()) - year-from_date(xs:date(sf:FechaOperacion)) &lt;= 20">
+      <assert test="f:get-year(current-date()) - f:get-year(sf:FechaOperacion) &lt;= 20">
         La fecha de operación no puede tener más de 20 años de antigüedad  
       </assert>
     </rule>
     
     <rule context="//sf:RegistroAlta">
-      <assert test="exists(sf:FechaOperacion) and year-from_date(xs:date(sf:FechaOperacion)) &lt;= year-from-date(current-date())">
+      <assert test="f:get-year(sf:FechaOperacion) &lt;= f:get-year(current-date())">
         La fecha de operación no puede se posterior al año actual  
       </assert>
     </rule>
 
+  
   </pattern>
 
 </schema>
