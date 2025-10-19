@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<sf:RegistroAlta
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../src/main/xsd/SuministroInformacion.xsd"
+ xmlns:sf="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd"
+ xmlns:xd="http://www.w3.org/2000/09/xmldsig#"
+>
+<sf:IDVersion>1.0</sf:IDVersion>
+<sf:IDFactura>
+		<sf:IDEmisorFactura>89890001K</sf:IDEmisorFactura>
+		<sf:NumSerieFactura>F001-12345</sf:NumSerieFactura>
+		<sf:FechaExpedicionFactura>13-09-2024</sf:FechaExpedicionFactura>
+	</sf:IDFactura>
+<sf:NombreRazonEmisor>XXXXX</sf:NombreRazonEmisor>
+<sf:Subsanacion>S</sf:Subsanacion>
+<sf:RechazoPrevio>X</sf:RechazoPrevio>
+<sf:TipoFactura>R3</sf:TipoFactura>
+
+<sf:TipoRectificativa>S</sf:TipoRectificativa>
+<sf:FacturasRectificadas>
+	<sf:IDFacturaRectificada>
+			<sf:IDEmisorFactura>89890001K</sf:IDEmisorFactura>
+			<sf:NumSerieFactura>F001-12343</sf:NumSerieFactura>
+			<sf:FechaExpedicionFactura>13-07-2024</sf:FechaExpedicionFactura>
+	</sf:IDFacturaRectificada>
+</sf:FacturasRectificadas>
+
+<!--
+<sf:FacturasSustituidas>
+	<sf:IDFacturaSustituida>
+			<sf:IDEmisorFactura>89890001K</sf:IDEmisorFactura>
+			<sf:NumSerieFactura>F001-12343</sf:NumSerieFactura>
+			<sf:FechaExpedicionFactura>13-07-2024</sf:FechaExpedicionFactura>
+	</sf:IDFacturaSustituida>
+</sf:FacturasSustituidas>
+-->
+
+
+<sf:ImporteRectificacion>
+	<sf:BaseRectificada>100</sf:BaseRectificada>
+	<sf:CuotaRectificada>21</sf:CuotaRectificada>
+	<sf:CuotaRecargoRectificado>0</sf:CuotaRecargoRectificado>
+</sf:ImporteRectificacion>
+
+
+<sf:DescripcionOperacion>Descripción</sf:DescripcionOperacion>
+<sf:Destinatarios>
+		<sf:IDDestinatario>
+			<sf:NombreRazon>YYYY</sf:NombreRazon>
+			<sf:NIF>89890002E</sf:NIF>
+		</sf:IDDestinatario>
+	</sf:Destinatarios>
+<sf:Desglose>
+		<sf:DetalleDesglose>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
+			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
+			<sf:TipoImpositivo>4</sf:TipoImpositivo>
+			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
+			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
+		</sf:DetalleDesglose>
+		<sf:DetalleDesglose>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
+			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
+			<sf:TipoImpositivo>21</sf:TipoImpositivo>
+			<sf:BaseImponibleOimporteNoSujeto>100</sf:BaseImponibleOimporteNoSujeto>
+			<sf:CuotaRepercutida>21</sf:CuotaRepercutida>
+		</sf:DetalleDesglose>
+	</sf:Desglose>
+<sf:CuotaTotal>21.4</sf:CuotaTotal>
+<sf:ImporteTotal>131.4</sf:ImporteTotal>
+<sf:Encadenamiento>
+		<sf:RegistroAnterior>
+			<sf:IDEmisorFactura>89890001K</sf:IDEmisorFactura>
+			<sf:NumSerieFactura>F001-12344</sf:NumSerieFactura>
+			<sf:FechaExpedicionFactura>13-09-2024</sf:FechaExpedicionFactura>
+			<sf:Huella>HuellaRegistroAnterior</sf:Huella>
+		</sf:RegistroAnterior>
+	</sf:Encadenamiento>
+<sf:SistemaInformatico>
+		<sf:NombreRazon>SIF</sf:NombreRazon>
+		<sf:NIF>89890005W</sf:NIF>
+		<sf:NombreSistemaInformatico>NombreSistemaInformatico</sf:NombreSistemaInformatico>
+		<sf:IdSistemaInformatico>77</sf:IdSistemaInformatico>
+		<sf:Version>1.0.03</sf:Version>
+		<sf:NumeroInstalacion>383</sf:NumeroInstalacion>
+		<sf:TipoUsoPosibleSoloVerifactu>N</sf:TipoUsoPosibleSoloVerifactu>
+		<sf:TipoUsoPosibleMultiOT>S</sf:TipoUsoPosibleMultiOT>
+		<sf:IndicadorMultiplesOT>S</sf:IndicadorMultiplesOT>
+	</sf:SistemaInformatico>
+<sf:FechaHoraHusoGenRegistro>2024-09-13T19:20:30+01:00</sf:FechaHoraHusoGenRegistro>
+<sf:TipoHuella>01</sf:TipoHuella>
+<sf:Huella>Huella</sf:Huella>
+</sf:RegistroAlta>

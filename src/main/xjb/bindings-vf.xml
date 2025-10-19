@@ -1,0 +1,21 @@
+<jaxb:bindings jaxb:extensionBindingPrefixes="xjc" version="2.1"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+
+
+	<!-- UBL-xmldsig-core-schema-2.1.xsd -->
+	<jaxb:bindings schemaLocation="../xsd/xmldsig-core-schema.xsd">
+		<jaxb:schemaBindings>
+			<jaxb:package name="com.picoto.jaxb.xdsig" />
+		</jaxb:schemaBindings>
+	</jaxb:bindings>
+
+	<jaxb:bindings schemaLocation="../xsd/SuministroInformacion.xsd">
+		<jaxb:schemaBindings>
+			<jaxb:package name="com.picoto.jaxb.verifactu" />
+		</jaxb:schemaBindings>
+	</jaxb:bindings>
+
+
+</jaxb:bindings>
+

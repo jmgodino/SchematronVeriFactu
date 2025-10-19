@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+	xmlns="http://purl.oclc.org/dsdl/schematron"
+	queryBinding="xslt2" >
+
+<ns prefix="sf" uri="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd" />
+
+<phase id="all">
+	<active pattern="business"/>>
+</phase>
+  
+  <pattern id="business">
+    <title>Validaciones de negocio</title>
+
+	<rule context="//sf:RegistroAlta">
+		<report test="1 = 1">
+			Se ha encontrado el registro de facturacion
+		</report>
+    </rule>
+
+   <!-- 
+	- Solo podrá incluirse el campo RechazoPrevio con valor “X” si se ha informado el campo Subsanacion y tiene el valor “S”.
+	- No podrá informarse el campo RechazoPrevio con valor “S” si no se informa el campo Subsanación o éste tiene el valor “N”
+	-->
+    <rule context="//sf:RegistroAlta">
+      <assert test="sf:RechazoPrevio = 'X' and sf:Subsanacion = 'S' or not (sf:RechazoPrevio = 'X')">
+        El campo 'RechazoPrevio' solo puede tener el valor 'X' si 'Subsanacion'' tiene el valor 'S'
+      </assert>
+    </rule>
+    <rule context="//sf:RegistroAlta">
+      <assert test="sf:RechazoPrevio = 'S' and sf:Subsanacion = 'S' or not (sf:RechazoPrevio = 'S')">
+        El campo 'RechazoPrevio' solo puede tener el valor 'S' si 'Subsanacion' tiene el valor 'S'
+      </assert>
+    </rule>
+
+	<!-- 
+	- Solo podrá incluirse este campo si el valor del campo TipoFactura es igual a “R1”, “R2”, “R3”, “R4” o “R5”
+	- Campo obligatorio si TipoFactura es igual a “R1”, “R2”, “R3”, “R4” o “R5”
+	-->
+    <rule context="//sf:RegistroAlta">
+      <assert test="sf:TipoFactura = ('F1','F2','F3') and not(exists(sf:TipoRectificativa)) or not(sf:TipoFactura = ('F1','F2','F3')) and sf:TipoRectificativa = ('I','S')">
+        El campo 'TipoRectificativa' no se puede cumplimentar en facturas ordinarias. En facturas rectificativas se debe informar obligatoriamente: <value-of select='sf:TipoFactura' /> - <value-of select='sf:TipoRectificativa' />
+      </assert>
+    </rule>
+ 
+     <rule context="//sf:RegistroAlta">
+      <assert test="exists(sf:FacturasRectificadas) and sf:TipoFactura = ('R1','R2','R3','R4','R5') or  not(exists(sf:FacturasRectificadas))">
+        El grupo 'FacturasRectificadas' solo se puede informar en facturas rectificativas R1..R5
+      </assert>
+    </rule>
+    
+    <rule context="//sf:RegistroAlta">
+      <assert test="exists(sf:FacturasSustituidas) and sf:TipoFactura = 'F3' or  not(exists(sf:FacturasSustituidas))">
+        El grupo 'FacturasSustituidas' solo se puede informar en facturas sustitutivas 'F3'  
+      </assert>
+    </rule>
+    
+    <rule context="//sf:RegistroAlta">
+      <assert test="exists(sf:ImporteRectificacion) and sf:TipoRectificativa = 'S' or  not(exists(sf:ImporteRectificacion))">
+        El grupo 'ImporteRectificacion' solo se puede informar en facturas rectificativas por sustitución 'TipoRectificativa=S'  
+      </assert>
+    </rule>
+    
+    <rule context="//sf:RegistroAlta">
+      <assert test="exists(sf:ImporteRectificacion) and sf:TipoRectificativa = 'S' or  not(sf:TipoRectificativa = 'S')">
+        El grupo 'ImporteRectificacion' es obligatorio en facturas rectificativas por sustitución 'TipoRectificativa=S'  
+      </assert>
+    </rule>
+ 
+
+  </pattern>
+
+</schema>
