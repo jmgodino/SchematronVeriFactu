@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 
 import com.helger.schematron.sch.SchematronResourceSCH;
 import com.helger.schematron.svrl.SVRLHelper;
+import com.helger.schematron.svrl.SVRLMarshaller;
 import com.helger.schematron.svrl.jaxb.SchematronOutputType;
 import com.helger.xml.transform.TransformSourceFactory;
 import com.picoto.jaxb.verifactu.RegistroFacturacionAltaType;
@@ -30,11 +31,12 @@ public class TestValidator extends Temporizado {
 
 		XMLStreamReader reader = Utils.getStaxReader(Utils.getFile(FICHERO_REGISTRO_FACTURA));
 		Validator validator = Utils.getValidator(RegistroFacturacionAltaType.class, "/SuministroInformacion.xsd");
-
-		initTimeCalculation("COMPLETO");
+ 
+		initTimeCalculation("con Schematron");
 		validator.validate(new StAXSource(reader));
+		Utils.log("El documento XML es acorde al schema XSD");
 		validarSchematron();
-		endTimeCalculation("COMPLETO");
+		endTimeCalculation("fin del Schematron");
 	}
 
 	private void validarSchematron() {
@@ -42,7 +44,9 @@ public class TestValidator extends Temporizado {
 			// 1. Carga el esquema Schematron
 			final SchematronResourceSCH aSch = SchematronResourceSCH.fromInputStream("schematron",
 					Utils.getFile("src/main/resources/sch/schematron-verifactu.xml"));
-
+			aSch.setAllowForeignElements(true);
+			aSch.setUseCache(false);
+			
 			// 2. Carga el documento XML a validar
 			final File xmlFile = new File(FICHERO_REGISTRO_FACTURA);
 
@@ -52,16 +56,21 @@ public class TestValidator extends Temporizado {
 
 			// 4. Procesa y muestra los resultados
 			if (SVRLHelper.getAllFailedAssertions(aSVRL).isEmpty()) {
-				Utils.log("El documento XML es válido.");
+				Utils.log("El documento XML es acorde al schematron");
 			} else {
-				Utils.log("El documento XML contiene errores (pure):");
+				Utils.log("El documento XML contiene errores (SCH):");
 				SVRLHelper.getAllFailedAssertions(aSVRL).forEach(failedAssert -> {
-					Utils.log(" - Error: " + failedAssert.getText() + " (Ubicación: " + failedAssert.getLocation() + ")");
+					Utils.log(
+							" - Error: " + failedAssert.getText() + " (Ubicación: " + failedAssert.getLocation() + ")");
 				});
-				
+
 				SVRLHelper.getAllSuccessfulReports(aSVRL).forEach(report -> {
-					Utils.log(" - Informe: "+ report.getText());
+					Utils.log(" - Informe: " + report.getText());
 				});
+			}
+
+			if (aSVRL != null) {
+				//Utils.log(new SVRLMarshaller().getAsString(aSVRL));
 			}
 
 		} catch (final Exception ex) {
