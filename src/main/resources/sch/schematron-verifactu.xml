@@ -23,6 +23,19 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:function>
+  
+ <xsl:function name="f:get-valor" as="xs:string">
+    <xsl:param name="elemento" as="node()*"/>
+    <xsl:param name="defecto" as="xs:string"/>
+    <xsl:choose>
+      <xsl:when test="$elemento and normalize-space(string($elemento)) != ''">
+        <xsl:value-of select="normalize-space(string($elemento))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$defecto" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
 
 <phase id="all">
 	<active pattern="business"/>>
@@ -33,10 +46,10 @@
 
 	<rule context="sf:RegistroAlta">
 		<report test="true()">
-			Se ha encontrado el registro de facturacion
+			Se ha encontrado el registro de facturacion <value-of select="f:get-valor(sf:RechazoPrevio,'DEFECTO')"/>
 		</report>
 
-      <assert test="./sf:RechazoPrevio = 'X' and ./sf:Subsanacion = 'S' or not (./sf:RechazoPrevio = 'X')">
+      <assert test="sf:RechazoPrevio = 'X' and sf:Subsanacion = 'S' or not (sf:RechazoPrevio = 'X')">
         El campo 'RechazoPrevio' solo puede tener el valor 'X' si 'Subsanacion'' tiene el valor 'S'
       </assert>
 
@@ -75,7 +88,47 @@
         La fecha de operación no puede se posterior al año actual  
       </assert>
       
-            
+      <assert test="not(exists(sf:FacturaSimplificadaArt7273)) or sf:FacturaSimplificadaArt7273 = 'N' or sf:FacturaSimplificadaArt7273 = 'S' and sf:TipoFactura = ('F1','F3','R1','R2','R3','R4')">
+        El campo FacturaSimplificadaArt7273 sólo podrá tener valor 'S' si TipoFactura = 'F1' o 'F3' o 'R1' o 'R2' o 'R3' o 'R4'.
+      </assert>
+
+      <assert test="not(exists(sf:FacturaSinIdentifDestinatarioArt61d)) or sf:FacturaSinIdentifDestinatarioArt61d = 'N' or sf:FacturaSinIdentifDestinatarioArt61d = 'S' and sf:TipoFactura = ('F2','R5')">      
+        El campo FacturaSinIdentifDestinatarioArt61d sólo podrá tener valor 'S' si TipoFactura = 'F2' o 'R5'.
+      </assert>
+      
+      <assert test="(not(exists(sf:Macrodato)) or sf:Macrodato = 'N') and sf:ImporteTotal &lt; 100000000 or sf:Macrodato = 'S' and sf:ImporteTotal &gt;= 100000000">
+		Macrodato debe tener valor 'S' si ImporteTotal >= |100.000.000,00| en caso contrario no debe tener valor o tener valor 'N'
+      </assert>
+      
+      <assert test="not(exists(sf:EmitidaPorTerceroODestinatario)) or sf:EmitidaPorTerceroODestinatario != 'T' or sf:EmitidaPorTerceroODestinatario = 'T' and exists(sf:Tercero)">
+		Si EmitidaPorTerceroODestinatario es igual a 'T'', el bloque Tercero será de cumplimentación obligatoria.
+      </assert>
+
+      <assert test="not(exists(sf:EmitidaPorTerceroODestinatario)) or sf:EmitidaPorTerceroODestinatario != 'D'or sf:EmitidaPorTerceroODestinatario = 'D' and exists(sf:Destinatarios)">
+		Si EmitidaPorTerceroODestinatario es igual a “D”, el bloque Destinatarios será de cumplimentación obligatoria
+      </assert>
+
+	  <assert test="not(exists(sf:Tercero)) or exists(sf:Tercero) and sf:EmitidaPorTerceroODestinatario = 'T'">
+	    La agrupación Tercero solo puede informarse si EmitidaPorTerceroODestinatario = 'T' 
+	  </assert>
+
+<!--
+	  <assert test="not(exists(sf:Destinatarios)) or exists(sf:Destinatarios) and sf:EmitidaPorTerceroODestinatario = 'D'">
+	    La agrupación Destinatarios solo puede informarse si EmitidaPorTerceroODestinatario = 'D' 
+	  </assert>
+-->	  
+
+	  <assert test="not(exists(sf:Cupon)) or sf:Cupon = 'N' or sf:Cupon = 'S' and sf:TipoFactura = ('R1', 'R5')">
+	    El campo Cupon sólo se podrá tener valor 'S' si TipoFactura = 'R1' o 'R5'
+	  </assert>
+
+      </rule>
+      
+      <rule context="sf:RegistroAlta/sf:Desglose/sf:DetalleDesglose">
+
+      	  <assert test="f:get-valor(sf:Impuesto,'01') != '01' or f:get-valor(sf:Impuesto,'01') = '01' and sf:CalificacionOperacion != 'S1' or f:get-valor(sf:Impuesto,'01') = '01' and sf:CalificacionOperacion = 'S1' and sf:TipoImpositivo = (0, 4, 10, 21)">
+      	    Debe informar un TipoImpositivo correcto para el IVA <value-of select="sf:TipoImpositivo" />
+		  </assert>
       </rule>
   
   </pattern>

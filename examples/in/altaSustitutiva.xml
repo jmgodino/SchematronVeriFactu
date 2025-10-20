@@ -15,21 +15,26 @@
 <sf:NombreRazonEmisor>XXXXX</sf:NombreRazonEmisor>
 <sf:Subsanacion>S</sf:Subsanacion>
 <sf:RechazoPrevio>X</sf:RechazoPrevio>
-<sf:TipoFactura>F1</sf:TipoFactura>
+<sf:TipoFactura>F3</sf:TipoFactura>
+
+<sf:FacturasSustituidas>
+	<sf:IDFacturaSustituida>
+			<sf:IDEmisorFactura>89890001K</sf:IDEmisorFactura>
+			<sf:NumSerieFactura>F001-12343</sf:NumSerieFactura>
+			<sf:FechaExpedicionFactura>13-07-2024</sf:FechaExpedicionFactura>
+	</sf:IDFacturaSustituida>
+</sf:FacturasSustituidas>
 
 <sf:FechaOperacion>01-01-2024</sf:FechaOperacion>
 
 <sf:DescripcionOperacion>Descripción</sf:DescripcionOperacion>
-
-<sf:FacturaSimplificadaArt7273>S</sf:FacturaSimplificadaArt7273>
 
 <sf:Destinatarios>
 		<sf:IDDestinatario>
 			<sf:NombreRazon>YYYY</sf:NombreRazon>
 			<sf:NIF>89890002E</sf:NIF>
 		</sf:IDDestinatario>
-</sf:Destinatarios>
-	
+	</sf:Destinatarios>
 <sf:Desglose>
 		<sf:DetalleDesglose>
 			<sf:ClaveRegimen>01</sf:ClaveRegimen>
@@ -39,7 +44,7 @@
 			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
 		</sf:DetalleDesglose>
 		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>02</sf:ClaveRegimen>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
 			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
 			<sf:TipoImpositivo>21</sf:TipoImpositivo>
 			<sf:BaseImponibleOimporteNoSujeto>100</sf:BaseImponibleOimporteNoSujeto>

@@ -21,7 +21,12 @@
 
 <sf:DescripcionOperacion>Descripción</sf:DescripcionOperacion>
 
-<sf:FacturaSimplificadaArt7273>S</sf:FacturaSimplificadaArt7273>
+<sf:EmitidaPorTerceroODestinatario>T</sf:EmitidaPorTerceroODestinatario>
+
+<sf:Tercero>
+	<sf:NombreRazon>ANÓNIMO</sf:NombreRazon>
+	<sf:NIF>89890005W</sf:NIF>
+</sf:Tercero>
 
 <sf:Destinatarios>
 		<sf:IDDestinatario>
@@ -29,7 +34,7 @@
 			<sf:NIF>89890002E</sf:NIF>
 		</sf:IDDestinatario>
 </sf:Destinatarios>
-	
+
 <sf:Desglose>
 		<sf:DetalleDesglose>
 			<sf:ClaveRegimen>01</sf:ClaveRegimen>
@@ -39,7 +44,7 @@
 			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
 		</sf:DetalleDesglose>
 		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>02</sf:ClaveRegimen>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
 			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
 			<sf:TipoImpositivo>21</sf:TipoImpositivo>
 			<sf:BaseImponibleOimporteNoSujeto>100</sf:BaseImponibleOimporteNoSujeto>

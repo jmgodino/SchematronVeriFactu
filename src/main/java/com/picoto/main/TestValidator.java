@@ -21,7 +21,7 @@ import com.picoto.jaxb.verifactu.RegistroFacturacionAltaType;
 
 public class TestValidator extends Temporizado {
 
-	private static final String FICHERO_REGISTRO_FACTURA = "examples/in/alta.xml";
+	private static final String FICHERO_REGISTRO_FACTURA = "examples/in/altaIGIC.xml";
 
 	public TestValidator() throws JAXBException {
 		super();
@@ -72,6 +72,8 @@ public class TestValidator extends Temporizado {
 			if (aSVRL != null) {
 				//Utils.log(new SVRLMarshaller().getAsString(aSVRL));
 			}
+			
+			Utils.log(String.format("** Recordatorio, se ha procesado el fichero %s", FICHERO_REGISTRO_FACTURA));
 
 		} catch (final Exception ex) {
 			ex.printStackTrace();
