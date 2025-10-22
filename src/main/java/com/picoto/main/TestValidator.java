@@ -21,7 +21,7 @@ import com.picoto.jaxb.verifactu.RegistroFacturacionAltaType;
 
 public class TestValidator extends Temporizado {
 
-	private static final String FICHERO_REGISTRO_FACTURA = "examples/in/altaIGIC.xml";
+	private static final String FICHERO_REGISTRO_FACTURA = "examples/in/alta.xml";
 
 	public TestValidator() throws JAXBException {
 		super();
@@ -61,7 +61,7 @@ public class TestValidator extends Temporizado {
 				Utils.log("El documento XML contiene errores (SCH):");
 				SVRLHelper.getAllFailedAssertions(aSVRL).forEach(failedAssert -> {
 					Utils.log(
-							" - Error: " + failedAssert.getText() + " (Ubicación: " + failedAssert.getLocation() + ")");
+							" - Error: " + failedAssert.getID() + "-" + failedAssert.getText() + " (Ubicación: " + failedAssert.getLocation() + ")");
 				});
 
 				SVRLHelper.getAllSuccessfulReports(aSVRL).forEach(report -> {

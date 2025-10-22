@@ -17,7 +17,7 @@
 <sf:RechazoPrevio>X</sf:RechazoPrevio>
 <sf:TipoFactura>F1</sf:TipoFactura>
 
-<sf:FechaOperacion>01-01-2024</sf:FechaOperacion>
+<sf:FechaOperacion>19-11-2022</sf:FechaOperacion>
 
 <sf:DescripcionOperacion>Descripción</sf:DescripcionOperacion>
 
@@ -39,9 +39,30 @@
 			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
 		</sf:DetalleDesglose>
 		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>02</sf:ClaveRegimen>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
+			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
+			<sf:TipoImpositivo>10</sf:TipoImpositivo>
+			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
+			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
+		</sf:DetalleDesglose>
+		<sf:DetalleDesglose>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
 			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
 			<sf:TipoImpositivo>21</sf:TipoImpositivo>
+			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
+			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
+		</sf:DetalleDesglose>
+		<sf:DetalleDesglose>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
+			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
+			<sf:TipoImpositivo>0</sf:TipoImpositivo>
+			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
+			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
+		</sf:DetalleDesglose>						
+		<sf:DetalleDesglose>
+			<sf:ClaveRegimen>02</sf:ClaveRegimen>
+			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
+			<sf:TipoImpositivo>5</sf:TipoImpositivo>
 			<sf:BaseImponibleOimporteNoSujeto>100</sf:BaseImponibleOimporteNoSujeto>
 			<sf:CuotaRepercutida>21</sf:CuotaRepercutida>
 		</sf:DetalleDesglose>
