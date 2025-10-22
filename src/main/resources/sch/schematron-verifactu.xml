@@ -191,7 +191,7 @@
       
       <rule context="sf:RegistroAlta/sf:Desglose/sf:DetalleDesglose">
 
-      	  <assert id="VF-DET-01" test="f:get-valor(sf:Impuesto,'01') != '01' or f:get-valor(sf:Impuesto,'01') = '01' and sf:CalificacionOperacion != 'S1' or f:get-valor(sf:Impuesto,'01') = '01' and sf:CalificacionOperacion = 'S1' and sf:TipoImpositivo = (0, 2, 4, 5, 7.5, 10, 21)">
+      	  <assert id="VF-DET-01" test="f:get-valor(sf:Impuesto,'01') != '01' or sf:CalificacionOperacion != 'S1' or sf:TipoImpositivo = (0, 2, 4, 5, 7.5, 10, 21)">
       	    Debe informar un TipoImpositivo correcto para el IVA: <value-of select="sf:TipoImpositivo" />
 		  </assert>
 	
@@ -206,6 +206,42 @@
 		  <assert id="VF-DET-04" test="sf:TipoImpositivo != 7.5 or f:rango-fechas-tipo2y75(../..)">
 		    El tipo impositivo al 7.5 solo puede aplicarse entre octubre y diciembre de 2024
 		  </assert>
+		  
+		  <assert id="VF-DET-05" test="not(exists(sf:BaseImponibleACoste)) or sf:ClaveRegimen = '06' or sf:Impuesto = ('02', '05')">
+		    El campo BaseImponibleACoste solo puede estar cumplimentado si ClaveRegimen es = '06' o Impuesto = '02' o '05'
+		  </assert>
+		  
+       	  <assert id="VF-DET-06" test="not(exists(sf:TipoRecargoEquivalencia)) or f:get-valor(sf:Impuesto,'01') != '01' or sf:CalificacionOperacion != 'S1' or sf:TipoRecargoEquivalencia = (0, 0.26, 0.5, 0.62, 1, 1.4, 1.75, 5.2)">
+      	    Debe informar un TipoRecargoEquivalencia correcto para el IVA: <value-of select="sf:TipoImpositivo" />
+		  </assert>
+		  
+		  <assert id="VF-DET-07" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = (1.75, 5.2)) or sf:TipoImpositivo = 21 ">
+      	    Si TipoImpositivo es 21 sólo se admitirán TipoRecargoEquivalencia = 5,2 o 1,75.
+		  </assert>
+
+		  <assert id="VF-DET-08" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 1.4) or sf:TipoImpositivo = 10 ">
+      	    Si TipoImpositivo es 10 sólo se admitirá TipoRecargoEquivalencia = 1,4.
+		  </assert>
+		  
+		  <assert id="VF-DET-09" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 1) or sf:TipoImpositivo = 7.5 ">
+      	    Si TipoImpositivo es 7,5 sólo se admitirá TipoRecargoEquivalencia = 1
+		  </assert>
+		  
+		  <assert id="VF-DET-10" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.62) or sf:TipoImpositivo = 5 ">
+      	    Si TipoImpositivo es 5 sólo se admitirá TipoRecargoEquivalencia = 0.62
+		  </assert>
+		  
+		  <assert id="VF-DET-11" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.5) or sf:TipoImpositivo = (4, 5) ">
+      	    Si TipoImpositivo es 4 o 5 sólo se admitirá TipoRecargoEquivalencia = 0.5
+		  </assert>
+		  
+		  <assert id="VF-DET-12" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.26) or sf:TipoImpositivo = 2 ">
+      	    Si TipoImpositivo es 2 sólo se admitirá TipoRecargoEquivalencia = 0.26
+		  </assert>
+		  
+		  <assert id="VF-DET-13" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0) or sf:TipoImpositivo = 0 ">
+      	    Si TipoImpositivo es 0 sólo se admitirá TipoRecargoEquivalencia = 0
+		  </assert>		  		  		  
 
       </rule>
   
