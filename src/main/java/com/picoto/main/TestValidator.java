@@ -21,7 +21,7 @@ import com.picoto.jaxb.verifactu.RegistroFacturacionAltaType;
 
 public class TestValidator extends Temporizado {
 
-	private static final String FICHERO_REGISTRO_FACTURA = "examples/in/alta.xml";
+	private static final String FICHERO_REGISTRO_FACTURA = "examples/in/altaExenta.xml";
 
 	public TestValidator() throws JAXBException {
 		super();

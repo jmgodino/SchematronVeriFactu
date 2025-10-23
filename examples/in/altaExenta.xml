@@ -26,104 +26,68 @@
 <sf:Destinatarios>
 		<sf:IDDestinatario>
 			<sf:NombreRazon>YYYY</sf:NombreRazon>
-			<sf:NIF>89890002E</sf:NIF>
+<!--			<sf:NIF>12345678Z</sf:NIF> -->
+			<sf:IDOtro>
+				<sf:CodigoPais>FR</sf:CodigoPais>
+				<sf:IDType>02</sf:IDType>
+				<sf:ID>12345678</sf:ID>
+			</sf:IDOtro>
+
 		</sf:IDDestinatario>
 </sf:Destinatarios>
 	
 <sf:Desglose>
 		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>06</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>4</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
-			<sf:BaseImponibleACoste>10</sf:BaseImponibleACoste>
-			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
-		</sf:DetalleDesglose>
-		<sf:DetalleDesglose>
+			<sf:Impuesto>01</sf:Impuesto>
 			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>10</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
-		</sf:DetalleDesglose>
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>21</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
-		</sf:DetalleDesglose>
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
+			<sf:OperacionExenta>E1</sf:OperacionExenta>
 			<sf:TipoImpositivo>0</sf:TipoImpositivo>
 			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
-		</sf:DetalleDesglose>						
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>02</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>5</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>100</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>21</sf:CuotaRepercutida>
-		</sf:DetalleDesglose>
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>10</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
-			<sf:TipoRecargoEquivalencia>1.4</sf:TipoRecargoEquivalencia>
-		</sf:DetalleDesglose>		
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>21</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
-			<sf:TipoRecargoEquivalencia>5.2</sf:TipoRecargoEquivalencia>
-		</sf:DetalleDesglose>		
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>4</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
-			<sf:TipoRecargoEquivalencia>0.5</sf:TipoRecargoEquivalencia>
-		</sf:DetalleDesglose>		
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>0</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.4</sf:CuotaRepercutida>
-			<sf:TipoRecargoEquivalencia>0</sf:TipoRecargoEquivalencia>
-		</sf:DetalleDesglose>	
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S1</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>5</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>100</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.62</sf:CuotaRepercutida>
-		</sf:DetalleDesglose>	
-		<sf:DetalleDesglose>
-			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>S2</sf:CalificacionOperacion>
-			<sf:TipoImpositivo>0</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>100</sf:BaseImponibleOimporteNoSujeto>
-			<sf:CuotaRepercutida>0.0</sf:CuotaRepercutida>
+			<sf:CuotaRepercutida>0</sf:CuotaRepercutida>
+			<sf:TipoRecargoEquivalencia>0.0</sf:TipoRecargoEquivalencia>
+			<sf:CuotaRecargoEquivalencia>0.0</sf:CuotaRecargoEquivalencia>
 		</sf:DetalleDesglose>
 		<sf:DetalleDesglose>
 			<sf:Impuesto>01</sf:Impuesto>
 			<sf:ClaveRegimen>01</sf:ClaveRegimen>
-			<sf:CalificacionOperacion>N2</sf:CalificacionOperacion>
+			<sf:OperacionExenta>E5</sf:OperacionExenta>
 			<sf:TipoImpositivo>0</sf:TipoImpositivo>
-			<sf:BaseImponibleOimporteNoSujeto>100.0</sf:BaseImponibleOimporteNoSujeto>
+			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
+			<sf:CuotaRepercutida>0</sf:CuotaRepercutida>
+			<sf:TipoRecargoEquivalencia>0</sf:TipoRecargoEquivalencia>
+			<sf:CuotaRecargoEquivalencia>0.0</sf:CuotaRecargoEquivalencia>
+		</sf:DetalleDesglose>		
+		<sf:DetalleDesglose>
+			<sf:Impuesto>03</sf:Impuesto>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
+			<sf:OperacionExenta>E4</sf:OperacionExenta>
+			<sf:TipoImpositivo>0</sf:TipoImpositivo>
+			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
+			<sf:CuotaRepercutida>0</sf:CuotaRepercutida>
+			<sf:TipoRecargoEquivalencia>0</sf:TipoRecargoEquivalencia>
+			<sf:CuotaRecargoEquivalencia>0.0</sf:CuotaRecargoEquivalencia>
+		</sf:DetalleDesglose>		
+		<sf:DetalleDesglose>
+			<sf:Impuesto>03</sf:Impuesto>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
+			<sf:OperacionExenta>E8</sf:OperacionExenta>
+			<sf:TipoImpositivo>0</sf:TipoImpositivo>
+			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
 			<sf:CuotaRepercutida>0.0</sf:CuotaRepercutida>
+			<sf:TipoRecargoEquivalencia>0.0</sf:TipoRecargoEquivalencia>
+			<sf:CuotaRecargoEquivalencia>0.0</sf:CuotaRecargoEquivalencia>
+		</sf:DetalleDesglose>		
+		<sf:DetalleDesglose>
+			<sf:Impuesto>01</sf:Impuesto>
+			<sf:ClaveRegimen>01</sf:ClaveRegimen>
+			<sf:OperacionExenta>E4</sf:OperacionExenta>
+			<sf:TipoImpositivo>0</sf:TipoImpositivo>
+			<sf:BaseImponibleOimporteNoSujeto>10</sf:BaseImponibleOimporteNoSujeto>
+			<sf:CuotaRepercutida>0</sf:CuotaRepercutida>
 			<sf:TipoRecargoEquivalencia>0</sf:TipoRecargoEquivalencia>
 			<sf:CuotaRecargoEquivalencia>0.0</sf:CuotaRecargoEquivalencia>
 		</sf:DetalleDesglose>
-	</sf:Desglose>
+</sf:Desglose>
 <sf:CuotaTotal>21.4</sf:CuotaTotal>
 <sf:ImporteTotal>131.4</sf:ImporteTotal>
 <sf:Encadenamiento>
