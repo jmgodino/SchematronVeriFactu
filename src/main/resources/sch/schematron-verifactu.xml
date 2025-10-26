@@ -1,365 +1,268 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema 
-	xmlns="http://purl.oclc.org/dsdl/schematron"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:sf="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd"
-	xmlns:xd="http://www.w3.org/2000/09/xmldsig#" 
-	queryBinding="xslt2" >
-
-<ns prefix="sf" uri="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd" />
-<ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema" />
-<ns uri="#functions" prefix="f"/>
-<ns prefix="xd" uri="http://www.w3.org/2000/09/xmldsig#" />
- 
-	  <xsl:function name="f:get-year" as="xs:int">
-	    <xsl:param name="fecha" as="xs:string"/>
-	    <xsl:choose>
-	      <xsl:when test="exists($fecha)">
-	        <xsl:value-of select="substring($fecha, 7, 4)"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-	        <xsl:value-of select="2025" />
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:function>
-
-  
-	  <xsl:function name="f:get-valor" as="xs:string">
-	    <xsl:param name="elemento" as="node()*"/>
-	    <xsl:param name="defecto" as="xs:string"/>
-	    <xsl:choose>
-	      <xsl:when test="$elemento and normalize-space(string($elemento)) != ''">
-	        <xsl:value-of select="normalize-space(string($elemento))"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-	        <xsl:value-of select="$defecto" />
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:function>
-  
-  	  <xsl:function name="f:get-valor-num" as="xs:double">
-	    <xsl:param name="elemento" as="node()*"/>
-	    <xsl:param name="defecto" as="xs:double"/>
-	    <xsl:choose>
-	      <xsl:when test="$elemento">
-	        <xsl:value-of select="$elemento"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-	        <xsl:value-of select="$defecto" />
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:function>
-
-	  <xsl:function name="f:to-date" as="xs:date">
-	    <xsl:param name="str" as="xs:string"/>
-	    <xsl:choose>
-	      <xsl:when test="$str and normalize-space(string($str)) != ''">
-	        <xsl:value-of select="xs:date(concat(substring($str, 7, 4),'-',substring($str, 4, 2),'-',substring($str, 1, 2)))"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-	        <xsl:value-of select="()" />
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:function>
-
-
-	  <xsl:function name="f:get-fecha-valor" as="xs:string">
-	    <xsl:param name="fec1" as="node()*"/>
-	    <xsl:param name="fec2" as="node()*"/>
-	    <xsl:choose>
-	      <xsl:when test="$fec1 and normalize-space(string($fec1)) != ''">
-	        <xsl:value-of select="normalize-space(string($fec1))"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-	        <xsl:value-of select="normalize-space(string($fec2))" />
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:function>
-
-
-		<xsl:function name="f:fecha-entre" as="xs:boolean?">
-		  <xsl:param name="fecha" as="xs:string"/>
-		  <xsl:param name="inicio" as="xs:string"/>
-		  <xsl:param name="fin" as="xs:string"/>
-		  
-		  <xsl:variable name="fecha-dt" select="f:to-date($fecha)"/>
-		  <xsl:variable name="inicio-dt" select="f:to-date($inicio)"/>
-		  <xsl:variable name="fin-dt" select="f:to-date($fin)"/>
-		  
-		  <xsl:sequence select="
-		    if (exists($fecha-dt) and exists($inicio-dt) and exists($fin-dt))
-		    then $inicio-dt &lt;= $fecha-dt and $fecha-dt &lt;= $fin-dt
-		    else ()
-		  "/>
-		</xsl:function>
-  		
-  
-
+<schema xmlns="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:sf="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd" xmlns:xd="http://www.w3.org/2000/09/xmldsig#" queryBinding="xslt2">
+  <ns prefix="sf" uri="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd"/>
+  <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+  <ns uri="#functions" prefix="f"/>
+  <ns prefix="xd" uri="http://www.w3.org/2000/09/xmldsig#"/>
+  <xsl:function name="f:get-year" as="xs:int">
+    <xsl:param name="fecha" as="xs:string"/>
+    <xsl:choose>
+      <xsl:when test="exists($fecha)">
+        <xsl:value-of select="substring($fecha, 7, 4)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="2025"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  <xsl:function name="f:get-valor" as="xs:string">
+    <xsl:param name="elemento" as="node()*"/>
+    <xsl:param name="defecto" as="xs:string"/>
+    <xsl:choose>
+      <xsl:when test="$elemento and normalize-space(string($elemento)) != ''">
+        <xsl:value-of select="normalize-space(string($elemento))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$defecto"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  <xsl:function name="f:get-valor-num" as="xs:double">
+    <xsl:param name="elemento" as="node()*"/>
+    <xsl:param name="defecto" as="xs:double"/>
+    <xsl:choose>
+      <xsl:when test="$elemento">
+        <xsl:value-of select="$elemento"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$defecto"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  <xsl:function name="f:to-date" as="xs:date">
+    <xsl:param name="str" as="xs:string"/>
+    <xsl:choose>
+      <xsl:when test="$str and normalize-space(string($str)) != ''">
+        <xsl:value-of select="xs:date(concat(substring($str, 7, 4),'-',substring($str, 4, 2),'-',substring($str, 1, 2)))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  <xsl:function name="f:get-fecha-valor" as="xs:string">
+    <xsl:param name="fec1" as="node()*"/>
+    <xsl:param name="fec2" as="node()*"/>
+    <xsl:choose>
+      <xsl:when test="$fec1 and normalize-space(string($fec1)) != ''">
+        <xsl:value-of select="normalize-space(string($fec1))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="normalize-space(string($fec2))"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  <xsl:function name="f:fecha-entre" as="xs:boolean?">
+    <xsl:param name="fecha" as="xs:string"/>
+    <xsl:param name="inicio" as="xs:string"/>
+    <xsl:param name="fin" as="xs:string"/>
+    <xsl:variable name="fecha-dt" select="f:to-date($fecha)"/>
+    <xsl:variable name="inicio-dt" select="f:to-date($inicio)"/>
+    <xsl:variable name="fin-dt" select="f:to-date($fin)"/>
+    <xsl:sequence select="if (exists($fecha-dt) and exists($inicio-dt) and exists($fin-dt)) then $inicio-dt &lt;= $fecha-dt and $fecha-dt &lt;= $fin-dt else ()"/>
+  </xsl:function>
   <xsl:function name="f:rango-fechas-tipo5" as="xs:boolean?">
     <xsl:param name="factura" as="node()*"/>
-    <xsl:sequence select="
-      if (exists($factura))
-      then f:fecha-entre(f:get-fecha-valor($factura/sf:FechaOperacion, $factura/sf:IDFactura/sf:FechaExpedicionFactura), '01-07-2022', '30/09/2024')
-      else ()"/>
+    <xsl:sequence select="if (exists($factura)) then f:fecha-entre(f:get-fecha-valor($factura/sf:FechaOperacion, $factura/sf:IDFactura/sf:FechaExpedicionFactura), '01-07-2022', '30/09/2024') else ()"/>
   </xsl:function>
-
-
   <xsl:function name="f:rango-fechas-tipo2y75" as="xs:boolean?">
     <xsl:param name="factura" as="node()*"/>
-    <xsl:sequence select="
-      if (exists($factura))
-      then f:fecha-entre(f:get-fecha-valor($factura/sf:FechaOperacion, $factura/sf:IDFactura/sf:FechaExpedicionFactura), '01-10-2024', '31/12/2024')
-      else ()"/>
+    <xsl:sequence select="if (exists($factura)) then f:fecha-entre(f:get-fecha-valor($factura/sf:FechaOperacion, $factura/sf:IDFactura/sf:FechaExpedicionFactura), '01-10-2024', '31/12/2024') else ()"/>
   </xsl:function>
-
-
-<phase id="all">
-	<active pattern="business"/>>
+  <phase id="all"><active pattern="business"/>&gt;
 </phase>
-  
   <pattern id="business">
     <title>Validaciones de negocio</title>
+    <rule context="sf:RegistroAlta">
 
-	<rule id="VF-01" context="sf:RegistroAlta">
-
-      <assert id="VF-02" test="sf:RechazoPrevio = 'X' and sf:Subsanacion = 'S' or not (sf:RechazoPrevio = 'X')">
+      <assert id="VF-01" test="sf:RechazoPrevio = 'X' and sf:Subsanacion = 'S' or not (sf:RechazoPrevio = 'X')">
         El campo 'RechazoPrevio' solo puede tener el valor 'X' si 'Subsanacion'' tiene el valor 'S'
       </assert>
-
-      <assert  id="VF-03" test="sf:RechazoPrevio = 'S' and sf:Subsanacion = 'S' or not (sf:RechazoPrevio = 'S')">
+      <assert id="VF-02" test="sf:RechazoPrevio = 'S' and sf:Subsanacion = 'S' or not (sf:RechazoPrevio = 'S')">
         El campo 'RechazoPrevio' solo puede tener el valor 'S' si 'Subsanacion' tiene el valor 'S'
       </assert>
-      
-      <assert  id="VF-04" test="sf:TipoFactura = ('F1','F2','F3') and not(exists(sf:TipoRectificativa)) or not(sf:TipoFactura = ('F1','F2','F3')) and sf:TipoRectificativa = ('I','S')">
-        El campo 'TipoRectificativa' no se puede cumplimentar en facturas ordinarias. En facturas rectificativas se debe informar obligatoriamente: <value-of select='sf:TipoFactura' /> - <value-of select='sf:TipoRectificativa' />
+      <assert id="VF-03" test="sf:TipoFactura = ('F1','F2','F3') and not(exists(sf:TipoRectificativa)) or not(sf:TipoFactura = ('F1','F2','F3')) and sf:TipoRectificativa = ('I','S')">
+        El campo 'TipoRectificativa' no se puede cumplimentar en facturas ordinarias. En facturas rectificativas se debe informar obligatoriamente: <value-of select="sf:TipoFactura"/> - <value-of select="sf:TipoRectificativa"/>
       </assert>
- 
-      <assert  id="VF-05" test="exists(sf:FacturasRectificadas) and sf:TipoFactura = ('R1','R2','R3','R4','R5') or  not(exists(sf:FacturasRectificadas))">
+      <assert id="VF-04" test="exists(sf:FacturasRectificadas) and sf:TipoFactura = ('R1','R2','R3','R4','R5') or  not(exists(sf:FacturasRectificadas))">
         El grupo 'FacturasRectificadas' solo se puede informar en facturas rectificativas R1..R5
       </assert>
-
-      <assert  id="VF-06" test="exists(sf:FacturasSustituidas) and sf:TipoFactura = 'F3' or  not(exists(sf:FacturasSustituidas))">
+      <assert id="VF-05" test="exists(sf:FacturasSustituidas) and sf:TipoFactura = 'F3' or  not(exists(sf:FacturasSustituidas))">
         El grupo 'FacturasSustituidas' solo se puede informar en facturas sustitutivas 'F3'  
       </assert>
-    
-      <assert  id="VF-07" test="exists(sf:ImporteRectificacion) and sf:TipoRectificativa = 'S' or  not(exists(sf:ImporteRectificacion))">
+      <assert id="VF-06" test="exists(sf:ImporteRectificacion) and sf:TipoRectificativa = 'S' or  not(exists(sf:ImporteRectificacion))">
         El grupo 'ImporteRectificacion' solo se puede informar en facturas rectificativas por sustitución 'TipoRectificativa=S'  
       </assert>
-    
-      <assert  id="VF-08" test="exists(sf:ImporteRectificacion) and sf:TipoRectificativa = 'S' or  not(sf:TipoRectificativa = 'S')">
+      <assert id="VF-07" test="exists(sf:ImporteRectificacion) and sf:TipoRectificativa = 'S' or  not(sf:TipoRectificativa = 'S')">
         El grupo 'ImporteRectificacion' es obligatorio en facturas rectificativas por sustitución 'TipoRectificativa=S'  
       </assert>
-
-<!--
-      <report test="1 = 1">
-        Se ha encontrado la fecha de operación con valor: <value-of select="substring(sf:FechaOperacion, 7, 4)" />
-      </report>
--->      
-
-	  <assert  id="VF-09" test="year-from-date(current-date()) - f:get-year(sf:FechaOperacion) &lt;= 20">
+      <assert id="VF-08" test="year-from-date(current-date()) - f:get-year(sf:FechaOperacion) &lt;= 20">
         La fecha de operación no puede tener más de 20 años de antigüedad  
       </assert>
-    
-      <assert  id="VF-10" test="f:get-year(sf:FechaOperacion) &lt;= year-from-date(current-date())">
+      <assert id="VF-09" test="f:get-year(sf:FechaOperacion) &lt;= year-from-date(current-date())">
         La fecha de operación no puede se posterior al año actual  
       </assert>
-      
-      <assert  id="VF-11" test="not(exists(sf:FacturaSimplificadaArt7273)) or sf:FacturaSimplificadaArt7273 = 'N' or sf:TipoFactura = ('F1','F3','R1','R2','R3','R4')">
+      <assert id="VF-10" test="not(exists(sf:FacturaSimplificadaArt7273)) or sf:FacturaSimplificadaArt7273 = 'N' or sf:TipoFactura = ('F1','F3','R1','R2','R3','R4')">
         El campo FacturaSimplificadaArt7273 sólo podrá tener valor 'S' si TipoFactura = 'F1' o 'F3' o 'R1' o 'R2' o 'R3' o 'R4'.
       </assert>
-
-      <assert  id="VF-12" test="not(exists(sf:FacturaSinIdentifDestinatarioArt61d)) or sf:FacturaSinIdentifDestinatarioArt61d = 'N' or sf:TipoFactura = ('F2','R5')">      
+      <assert id="VF-11" test="not(exists(sf:FacturaSinIdentifDestinatarioArt61d)) or sf:FacturaSinIdentifDestinatarioArt61d = 'N' or sf:TipoFactura = ('F2','R5')">      
         El campo FacturaSinIdentifDestinatarioArt61d sólo podrá tener valor 'S' si TipoFactura = 'F2' o 'R5'.
       </assert>
-      
-      <assert test="(not(exists(sf:Macrodato)) or sf:Macrodato = 'N') and sf:ImporteTotal &lt; 100000000 or sf:Macrodato = 'S' and sf:ImporteTotal &gt;= 100000000">
-		Macrodato debe tener valor 'S' si ImporteTotal >= |100.000.000,00| en caso contrario no debe tener valor o tener valor 'N'
+      <assert id="VF-12" test="(not(exists(sf:Macrodato)) or sf:Macrodato = 'N') and sf:ImporteTotal &lt; 100000000 or sf:Macrodato = 'S' and sf:ImporteTotal &gt;= 100000000">
+		Macrodato debe tener valor 'S' si ImporteTotal &gt;= |100.000.000,00| en caso contrario no debe tener valor o tener valor 'N'
       </assert>
-      
-      <assert  id="VF-13" test="not(exists(sf:EmitidaPorTerceroODestinatario)) or sf:EmitidaPorTerceroODestinatario != 'T' or  exists(sf:Tercero)">
+      <assert id="VF-13" test="not(exists(sf:EmitidaPorTerceroODestinatario)) or sf:EmitidaPorTerceroODestinatario != 'T' or  exists(sf:Tercero)">
 		Si EmitidaPorTerceroODestinatario es igual a 'T'', el bloque Tercero será de cumplimentación obligatoria.
       </assert>
-
-      <assert  id="VF-14" test="not(exists(sf:EmitidaPorTerceroODestinatario)) or sf:EmitidaPorTerceroODestinatario != 'D' or exists(sf:Destinatarios)">
+      <assert id="VF-14" test="not(exists(sf:EmitidaPorTerceroODestinatario)) or sf:EmitidaPorTerceroODestinatario != 'D' or exists(sf:Destinatarios)">
 		Si EmitidaPorTerceroODestinatario es igual a “D”, el bloque Destinatarios será de cumplimentación obligatoria
       </assert>
-
-	  <assert id="VF-15" test="not(exists(sf:Tercero)) or exists(sf:Tercero) and sf:EmitidaPorTerceroODestinatario = 'T'">
+      <assert id="VF-15" test="not(exists(sf:Tercero)) or exists(sf:Tercero) and sf:EmitidaPorTerceroODestinatario = 'T'">
 	    La agrupación Tercero solo puede informarse si EmitidaPorTerceroODestinatario = 'T' 
 	  </assert>
-
-<!--
+      <!--
 	  <assert test="not(exists(sf:Destinatarios)) or exists(sf:Destinatarios) and sf:EmitidaPorTerceroODestinatario = 'D'">
 	    La agrupación Destinatarios solo puede informarse si EmitidaPorTerceroODestinatario = 'D' 
 	  </assert>
--->	  
-
-	  <assert id="VF-16" test="not(exists(sf:Cupon)) or sf:Cupon = 'N' or sf:Cupon = 'S' and sf:TipoFactura = ('R1', 'R5')">
+	  -->
+      <assert id="VF-16" test="not(exists(sf:Cupon)) or sf:Cupon = 'N' or sf:Cupon = 'S' and sf:TipoFactura = ('R1', 'R5')">
 	    El campo Cupon sólo se podrá tener valor 'S' si TipoFactura = 'R1' o 'R5'
 	  </assert>
-
-      </rule>
-      
-      <rule context="sf:RegistroAlta/sf:Desglose/sf:DetalleDesglose">
-
-      	  <assert id="VF-DET-01" test="f:get-valor(sf:Impuesto,'01') != '01' or sf:CalificacionOperacion != 'S1' or sf:TipoImpositivo = (0, 2, 4, 5, 7.5, 10, 21)">
-      	    Debe informar un TipoImpositivo correcto para el IVA: <value-of select="sf:TipoImpositivo" />
+      <report test="true()">
+        Confirmo que el procesamiento del registro se ha realizado sin problemas técnicos
+      </report>
+	  
+    </rule>
+    <rule context="sf:RegistroAlta/sf:Desglose/sf:DetalleDesglose">
+      <assert id="VF-DET-01" test="f:get-valor(sf:Impuesto,'01') != '01' or sf:CalificacionOperacion != 'S1' or sf:TipoImpositivo = (0, 2, 4, 5, 7.5, 10, 21)">
+      	    Debe informar un TipoImpositivo correcto para el IVA: <value-of select="sf:TipoImpositivo"/>
 		  </assert>
-	
-		  <assert id="VF-DET-02" test="sf:TipoImpositivo != 5 or f:rango-fechas-tipo5(../..)">
+      <assert id="VF-DET-02" test="sf:TipoImpositivo != 5 or f:rango-fechas-tipo5(../..)">
 		    El tipo impositivo al 5 solo puede aplicarse entre julio y septiembre de 2024
 		  </assert>
-		  
-		  <assert id="VF-DET-03" test="sf:TipoImpositivo != 2 or f:rango-fechas-tipo2y75(../..)">
+      <assert id="VF-DET-03" test="sf:TipoImpositivo != 2 or f:rango-fechas-tipo2y75(../..)">
 		    El tipo impositivo al 2 solo puede aplicarse entre octubre y diciembre de 2024
 		  </assert>
-
-		  <assert id="VF-DET-04" test="sf:TipoImpositivo != 7.5 or f:rango-fechas-tipo2y75(../..)">
+      <assert id="VF-DET-04" test="sf:TipoImpositivo != 7.5 or f:rango-fechas-tipo2y75(../..)">
 		    El tipo impositivo al 7.5 solo puede aplicarse entre octubre y diciembre de 2024
 		  </assert>
-		  
-		  <assert id="VF-DET-05" test="not(exists(sf:BaseImponibleACoste)) or sf:ClaveRegimen = '06' or sf:Impuesto = ('02', '05')">
+      <assert id="VF-DET-05" test="not(exists(sf:BaseImponibleACoste)) or sf:ClaveRegimen = '06' or sf:Impuesto = ('02', '05')">
 		    El campo BaseImponibleACoste solo puede estar cumplimentado si ClaveRegimen es = '06' o Impuesto = '02' o '05'
 		  </assert>
-		  
-       	  <assert id="VF-DET-06" test="not(exists(sf:TipoRecargoEquivalencia)) or f:get-valor(sf:Impuesto,'01') != '01' or sf:CalificacionOperacion != 'S1' or sf:TipoRecargoEquivalencia = (0, 0.26, 0.5, 0.62, 1, 1.4, 1.75, 5.2)">
-      	    Debe informar un TipoRecargoEquivalencia correcto para el IVA: <value-of select="sf:TipoImpositivo" />
+      <assert id="VF-DET-06" test="not(exists(sf:TipoRecargoEquivalencia)) or f:get-valor(sf:Impuesto,'01') != '01' or sf:CalificacionOperacion != 'S1' or sf:TipoRecargoEquivalencia = (0, 0.26, 0.5, 0.62, 1, 1.4, 1.75, 5.2)">
+      	    Debe informar un TipoRecargoEquivalencia correcto para el IVA: <value-of select="sf:TipoImpositivo"/>
 		  </assert>
-		  
-		  <assert id="VF-DET-07" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = (1.75, 5.2)) or sf:TipoImpositivo = 21">
+      <assert id="VF-DET-07" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = (1.75, 5.2)) or sf:TipoImpositivo = 21">
       	    Si TipoImpositivo es 21 sólo se admitirán TipoRecargoEquivalencia = 5,2 o 1,75.
 		  </assert>
-
-		  <assert id="VF-DET-08" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 1.4) or sf:TipoImpositivo = 10">
+      <assert id="VF-DET-08" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 1.4) or sf:TipoImpositivo = 10">
       	    Si TipoImpositivo es 10 sólo se admitirá TipoRecargoEquivalencia = 1,4.
 		  </assert>
-		  
-		  <assert id="VF-DET-09" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 1) or sf:TipoImpositivo = 7.5">
+      <assert id="VF-DET-09" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 1) or sf:TipoImpositivo = 7.5">
       	    Si TipoImpositivo es 7,5 sólo se admitirá TipoRecargoEquivalencia = 1
 		  </assert>
-		  
-		  <assert id="VF-DET-10" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.62) or sf:TipoImpositivo = 5">
+      <assert id="VF-DET-10" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.62) or sf:TipoImpositivo = 5">
       	    Si TipoImpositivo es 5 sólo se admitirá TipoRecargoEquivalencia = 0.62
 		  </assert>
-		  
-		  <assert id="VF-DET-11" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.5) or sf:TipoImpositivo = (4, 5)">
+      <assert id="VF-DET-11" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.5) or sf:TipoImpositivo = (4, 5)">
       	    Si TipoImpositivo es 4 o 5 sólo se admitirá TipoRecargoEquivalencia = 0.5
 		  </assert>
-		  
-		  <assert id="VF-DET-12" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.26) or sf:TipoImpositivo = 2">
+      <assert id="VF-DET-12" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0.26) or sf:TipoImpositivo = 2">
       	    Si TipoImpositivo es 2 sólo se admitirá TipoRecargoEquivalencia = 0.26
 		  </assert>
-		  
-		  <assert id="VF-DET-13" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0) or sf:TipoImpositivo = 0">
+      <assert id="VF-DET-13" test="not(exists(sf:TipoRecargoEquivalencia)) or not(sf:TipoRecargoEquivalencia = 0) or sf:TipoImpositivo = 0">
       	    Si TipoImpositivo es 0 sólo se admitirá TipoRecargoEquivalencia = 0
-		  </assert>		  		  		  
-
-		  <assert id="VF-DET-14" test="not(sf:CalificacionOperacion = 'S2') or ../../sf:TipoFactura = ('F1', 'F3', 'R1', 'R2', 'R3', 'R4')">
+		  </assert>
+      <assert id="VF-DET-14" test="not(sf:CalificacionOperacion = 'S2') or ../../sf:TipoFactura = ('F1', 'F3', 'R1', 'R2', 'R3', 'R4')">
       	    Si CalificacionOperacion es “S2”, TipoFactura solo puede ser “F1”, “F3”, “R1”, “R2”, “R3” y “R4”.
-		  </assert>	
-		  
-		  <assert id="VF-DET-15" test="not(sf:CalificacionOperacion = 'S2') or sf:TipoImpositivo = 0">
+		  </assert>
+      <assert id="VF-DET-15" test="not(sf:CalificacionOperacion = 'S2') or sf:TipoImpositivo = 0">
 			Cuando CalificacionOperacion sea “S2”: TipoImpositivo = 0
-		  </assert>		  
-
-		  <assert id="VF-DET-16" test="not(sf:CalificacionOperacion = 'S2') or sf:CuotaRepercutida = 0">
+		  </assert>
+      <assert id="VF-DET-16" test="not(sf:CalificacionOperacion = 'S2') or sf:CuotaRepercutida = 0">
 			Cuando CalificacionOperacion sea “S2”: CuotaRepercutida = 0
-		  </assert>		  
-		  
-		  
-
-		  <assert id="VF-DET-17" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:CalificacionOperacion = ('N1', 'N2')) or sf:TipoImpositivo = 0">
+		  </assert>
+      <assert id="VF-DET-17" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:CalificacionOperacion = ('N1', 'N2')) or sf:TipoImpositivo = 0">
 		    Si CalificacionOperacion es = “N1/N2” e Impuesto = ”01” (IVA) no se puede informar TipoImpositivo
 		  </assert>
-		  
-		  <assert id="VF-DET-18" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:CalificacionOperacion = ('N1', 'N2')) or sf:CuotaRepercutida = 0">
+      <assert id="VF-DET-18" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:CalificacionOperacion = ('N1', 'N2')) or sf:CuotaRepercutida = 0">
 		    Si CalificacionOperacion es = “N1/N2” e Impuesto = ”01” (IVA) no se puede informar CuotaRepercutida
 		  </assert>
-
-		  <assert id="VF-DET-19" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:CalificacionOperacion = ('N1', 'N2')) or f:get-valor-num(sf:TipoRecargoEquivalencia,0) = 0">
+      <assert id="VF-DET-19" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:CalificacionOperacion = ('N1', 'N2')) or f:get-valor-num(sf:TipoRecargoEquivalencia,0) = 0">
 		    Si CalificacionOperacion es = “N1/N2” e Impuesto = ”01” (IVA) no se puede informar TipoRecargoEquivalencia
-		  </assert>		  
-		  		  
-		  <assert id="VF-DET-20" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:CalificacionOperacion = ('N1', 'N2')) or f:get-valor-num(sf:CuotaRecargoEquivalencia,0) = 0">
+		  </assert>
+      <assert id="VF-DET-20" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:CalificacionOperacion = ('N1', 'N2')) or f:get-valor-num(sf:CuotaRecargoEquivalencia,0) = 0">
 		    Si CalificacionOperacion es = “N1/N2” e Impuesto = ”01” (IVA) no se puede informar CuotaRecargoEquivalencia
-		  </assert>		 
-	
-		  <assert id="VF-DET-21" test="not(f:get-valor(sf:Impuesto,'01') = '01') or exists(sf:CalificacionOperacion) or sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6')">
+		  </assert>
+      <assert id="VF-DET-21" test="not(f:get-valor(sf:Impuesto,'01') = '01') or exists(sf:CalificacionOperacion) or sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6')">
 		    Si la operación está exenta de IVA, OperacionExenta debe tomar uno de los siguientes valores ('E1', 'E2', 'E3', 'E4', 'E5', 'E6')
-		  </assert>		 
-		  
-		  <assert id="VF-DET-22" test="not(f:get-valor(sf:Impuesto,'03') = '03') or exists(sf:CalificacionOperacion) or sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')">
+		  </assert>
+      <assert id="VF-DET-22" test="not(f:get-valor(sf:Impuesto,'03') = '03') or exists(sf:CalificacionOperacion) or sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')">
 		    Si la operación está exenta de IGIC, OperacionExenta debe tomar uno de los siguientes valores ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')
-		  </assert>		 
-		   		  
-		  <assert id="VF-DET-23" test="not(sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')) or sf:TipoImpositivo = 0">
+		  </assert>
+      <assert id="VF-DET-23" test="not(sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')) or sf:TipoImpositivo = 0">
 		    Si OperacionExenta no se puede informar TipoImpositivo
 		  </assert>
-		  
-		  <assert id="VF-DET-24" test="not(sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')) or sf:CuotaRepercutida = 0">
+      <assert id="VF-DET-24" test="not(sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')) or sf:CuotaRepercutida = 0">
 		    Si OperacionExenta no se puede informar CuotaRepercutida
 		  </assert>
-
-		  <assert id="VF-DET-25" test="not(sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')) or f:get-valor-num(sf:TipoRecargoEquivalencia,0) = 0">
+      <assert id="VF-DET-25" test="not(sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')) or f:get-valor-num(sf:TipoRecargoEquivalencia,0) = 0">
 		    Si OperacionExenta no se puede informar TipoRecargoEquivalencia
-		  </assert>		  
-		  		  
-		  <assert id="VF-DET-26" test="not(sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')) or f:get-valor-num(sf:CuotaRecargoEquivalencia,0) = 0">
+		  </assert>
+      <assert id="VF-DET-26" test="not(sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')) or f:get-valor-num(sf:CuotaRecargoEquivalencia,0) = 0">
 		    Si OperacionExenta no se puede informar CuotaRecargoEquivalencia
-		  </assert>	
-		  
-		  <assert id="VF-DET-27" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '01') or not(sf:OperacionExenta = ('E2', 'E3'))">
+		  </assert>
+      <assert id="VF-DET-27" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '01') or not(sf:OperacionExenta = ('E2', 'E3'))">
 		    Si OperacionExenta en IVA o IGC y sf:ClaveRegimen = '01' entonces OperacionExenta debe tomar uno de los siguientes valores ('E2', 'E3')
-		  </assert>				  
-
-		  <assert id="VF-DET-28" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:OperacionExenta = 'E5') or exists(../../sf:Destinatarios/sf:IDDestinatario/sf:IDOtro)">
+		  </assert>
+      <assert id="VF-DET-28" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:OperacionExenta = 'E5') or exists(../../sf:Destinatarios/sf:IDDestinatario/sf:IDOtro)">
 		    Si Impuesto = “01” (IVA) y si OperacionExenta es igual a “E5”, sólo deberá existir la agrupación IDOtro en el bloque “Destinatario”.
-		  </assert>		
-		  
-		  <assert id="VF-DET-29" test="not(f:get-valor(sf:Impuesto,'01') = '01') or sf:ClaveRegimen = ('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19')">
+		  </assert>
+      <assert id="VF-DET-29" test="not(f:get-valor(sf:Impuesto,'01') = '01') or sf:ClaveRegimen = ('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19')">
 		    Si Impuesto = “01” (IVA) el valor de ClaveRegimen deberá estar cumplimentado y contenido en lista L8A.
-		  </assert>		
-
-		  <assert id="VF-DET-30" test="not(f:get-valor(sf:Impuesto,'03') = '03') or sf:ClaveRegimen = ('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21')">
+		  </assert>
+      <assert id="VF-DET-30" test="not(f:get-valor(sf:Impuesto,'03') = '03') or sf:ClaveRegimen = ('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21')">
 		    Si Impuesto = “03” (IGIC) el valor de ClaveRegimen deberá estar cumplimentado y contenido en lista L8B. Adicionalmente, puede contener el valor “20” y “21”
-		  </assert>	
-		  
-		  <assert id="VF-DET-31" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:ClaveRegimen = '02') or sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6')">
+		  </assert>
+      <assert id="VF-DET-31" test="not(f:get-valor(sf:Impuesto,'01') = '01') or not(sf:ClaveRegimen = '02') or sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6')">
 			Si Impuesto = “01” (IVA) y clave de ClaveRegimen es igual a “02”, solo puede estar cumplimentado OperacionExenta.
-		  </assert>		  
-
-		  <assert id="VF-DET-32" test="not(f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '02') or sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')">
+		  </assert>
+      <assert id="VF-DET-32" test="not(f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '02') or sf:OperacionExenta = ('E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8')">
 			Si Impuesto = “03” (IGIC) y clave de ClaveRegimen es igual a “02”, solo puede estar cumplimentado OperacionExenta.
-		  </assert>		  
-
-		  <assert id="VF-DET-33" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '03') or sf:CalificacionOperacion = 'S1'">
+		  </assert>
+      <assert id="VF-DET-33" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '03') or sf:CalificacionOperacion = 'S1'">
 			Si Impuesto = “01” (IVA) o “03” (IGIC) cuando ClaveRegimen sea igual a “03”, si se cumplimenta CalificacionOperacion, este campo solo puede contener el valor “S1”.
-		  </assert>		  
-
-		  <assert id="VF-DET-34" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '06') or not(../../sf:TipoFactura = ('F2','F3','R5'))">
+		  </assert>
+      <assert id="VF-DET-34" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '06') or not(../../sf:TipoFactura = ('F2','F3','R5'))">
 			Si Impuesto = “01” (IVA), “03” (IGIC) y ClaveRegimen es igual a “06” TipoFactura debe ser distinto de “F2”, “F3”, “R5”.
-		  </assert>	
-
-		  <assert id="VF-DET-35" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '06') or not(f:get-valor-num(sf:BaseImponibleACoste,0) = 0)">
+		  </assert>
+      <assert id="VF-DET-35" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '06') or not(f:get-valor-num(sf:BaseImponibleACoste,0) = 0)">
 			Si Impuesto = “01” (IVA), “03” (IGIC) y ClaveRegimen es igual a “06” BaseImponibleACoste deberá estar cumplimentado.
-		  </assert>	
-
-		  <assert id="VF-DET-36" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '07') or not(sf:CalificacionOperacion = ('S2', 'N1', 'N2'))">
+		  </assert>
+      <assert id="VF-DET-36" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '07') or not(sf:CalificacionOperacion = ('S2', 'N1', 'N2'))">
 			Si Impuesto = “01” (IVA), “03” (IGIC) y ClaveRegimen = “07”, CalificacionOperacion no puede ser “S2”, “N1”, “N2”.
-		  </assert>	
-
-		  <assert id="VF-DET-37" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '07') or not(sf:OperacionExenta = ('E2', 'E3', 'E4', 'E5'))">
+		  </assert>
+      <assert id="VF-DET-37" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '07') or not(sf:OperacionExenta = ('E2', 'E3', 'E4', 'E5'))">
 			Si Impuesto = “01” (IVA), “03” (IGIC) y ClaveRegimen = “07”, OperacionExenta no puede ser “E2”, “E3”, “E4” y “E5”.
-		  </assert>	
-
-		  <assert id="VF-DET-38" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '08') or sf:CalificacionOperacion = 'N2'">
+		  </assert>
+      <assert id="VF-DET-38" test="not(f:get-valor(sf:Impuesto,'01') = '01' or f:get-valor(sf:Impuesto,'03') = '03') or not(sf:ClaveRegimen = '08') or sf:CalificacionOperacion = 'N2'">
 			Si Impuesto = “01” (IVA), “03” (IGIC) Y ClaveRegimen = “08”, CalificacionOperacion tiene que ser “N2”
-		  </assert>			  
+	  </assert>
 
-		  
-      </rule>
-  
+      <report test="true()">
+        Confirmo que el procesamiento del desglose se ha realizado sin problemas técnicos
+      </report>
+	  
+    </rule>
   </pattern>
-
 </schema>

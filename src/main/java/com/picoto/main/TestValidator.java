@@ -54,7 +54,11 @@ public class TestValidator extends Temporizado {
 			final SchematronOutputType aSVRL = aSch
 					.applySchematronValidationToSVRL(TransformSourceFactory.create(xmlFile));
 
-			// 4. Procesa y muestra los resultados
+			// 4. Muestra los resultados
+			SVRLHelper.getAllSuccessfulReports(aSVRL).forEach(report -> {
+				Utils.log(" - Informe: " + report.getText());
+			});
+			
 			if (SVRLHelper.getAllFailedAssertions(aSVRL).isEmpty()) {
 				Utils.log("El documento XML es acorde al schematron");
 			} else {
@@ -63,12 +67,8 @@ public class TestValidator extends Temporizado {
 					Utils.log(
 							" - Error: " + failedAssert.getID() + "-" + failedAssert.getText() + " (Ubicación: " + failedAssert.getLocation() + ")");
 				});
-
-				SVRLHelper.getAllSuccessfulReports(aSVRL).forEach(report -> {
-					Utils.log(" - Informe: " + report.getText());
-				});
 			}
-
+			
 			if (aSVRL != null) {
 				//Utils.log(new SVRLMarshaller().getAsString(aSVRL));
 			}
