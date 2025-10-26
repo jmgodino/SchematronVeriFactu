@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
 // Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2025.10.19 a las 09:22:55 AM CEST 
+// Generado el: 2025.10.26 a las 05:26:44 PM CET 
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
